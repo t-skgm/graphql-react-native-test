@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import { SafeAreaView, View, Text } from 'react-native';
+import styled from "styled-components";
 import {
   ApolloClientHOC,
   MonsterPicker,
   MonsterDetail
 } from './components';
 
+const PicekerView = styled.View`
+  flex: 1;
+`;
+const PicekerText = styled.Text`
+  text-align: center;
+`;
+
 class Root extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      selected: 2
+      selected: 1
     };
   }
 
@@ -31,10 +39,10 @@ class Root extends Component {
           style={{ flex: 2 }}
           {...passProps}
         />
-        <View style={{ flex: 1 }}>
-          <Text>しらべたいモンスターをえらんでね</Text>
+        <PicekerView>
+          <PicekerText>しらべたいモンスターをえらんでね</PicekerText>
           <MonsterPicker {...passProps} />
-        </View>
+        </PicekerView>
       </SafeAreaView>
     );
   }
