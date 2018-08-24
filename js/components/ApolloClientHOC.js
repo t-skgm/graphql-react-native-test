@@ -4,7 +4,7 @@ import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 
-const SERVER_URI = 'http://localhost:4000/graphql';
+const SERVER_URI = 'https://monsters-gql.herokuapp.com/graphql';
 
 const ApolloClientHOC = WrappedComponent =>
   class Wrapper extends Component {
