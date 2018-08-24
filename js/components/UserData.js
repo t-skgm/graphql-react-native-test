@@ -3,31 +3,29 @@ import { Text, View } from 'react-native';
 import { graphql, ApolloProvider } from 'react-apollo';
 import gql from 'graphql-tag';
 
-const UserData = ({ data: data }) => {
+const UserData = ({ data: {loading, books} }) => {
   if (loading) {
-    return <Text style={styles.outer}>Loading</Text>;
+    return <Text>Loading</Text>;
   } else {
     return (
       <View>
-        <Text>
-          {data}
-        </Text>
+          {
+            books.map((book, idx) => {
+              return(
+                <Text key={"no" + idx}>{book.author}, {book.title}</Text>
+              )
+            })
+          }
       </View>
     );
   }
 }
 
 const getUserGraphQLWrapper = component => graphql(gql`
-  query allPosts {
-    posts {
-      id
+  query allBooks {
+    books {
       title
-      votes
-      author {
-        id
-        firstName
-        lastName
-      }
+      author
     }
   }
 `)(component);
