@@ -3,16 +3,16 @@ import { Text, View } from 'react-native';
 import { graphql, ApolloProvider } from 'react-apollo';
 import gql from 'graphql-tag';
 
-const UserData = ({ data: {loading, books} }) => {
+const MonsterData = ({ data: {loading, monsters} }) => {
   if (loading) {
     return <Text>Loading</Text>;
   } else {
     return (
       <View>
           {
-            books.map((book, idx) => {
+            monsters.map((m, idx) => {
               return(
-                <Text key={"no" + idx}>{book.author}, {book.title}</Text>
+                <Text key={"no" + idx}>{m.id}, {m.name}</Text>
               )
             })
           }
@@ -21,13 +21,14 @@ const UserData = ({ data: {loading, books} }) => {
   }
 }
 
-const getUserGraphQLWrapper = component => graphql(gql`
-  query allBooks {
-    books {
-      title
-      author
+const getMonsterWrapper = component => graphql(gql`
+  query monster {
+    monsters {
+      id
+      name
+      img_src
     }
   }
 `)(component);
 
-export default getUserGraphQLWrapper(UserData);
+export default getMonsterWrapper(MonsterData);
