@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { ApolloProvider } from 'react-apollo';
+import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { StyleSheet, Text, View } from 'react-native';
+import Root from './js/components/Root';
 
-export default class App extends React.Component {
+export default class App extends Component {
+  constructor(...args) {
+    super(...args);
+
+    const networkInterface = createNetworkInterface('http://localhost:8080/graphql');
+    this.client = new ApolloClient({
+      networkInterface,
+      dataIdFromObject: r => r.id,
+    });
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <ApolloProvider client={this.client}>
+        <Root />
+      </ApolloProvider>
     );
   }
 }
