@@ -22,4 +22,4 @@ const ApolloClientHOC = WrappedComponent =>
     }
   }
 
-export default ApolloClientHOC;
+export { ApolloClientHOC };

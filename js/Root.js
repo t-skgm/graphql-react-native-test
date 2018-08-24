@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { SafeAreaView, View, Text } from 'react-native';
-import ApolloClientHOC from './components/ApolloClientHOC';
-import MonsterData2 from './components/MonsterData2';
+import {
+  ApolloClientHOC,
+  MonsterPicker,
+  MonsterDetail
+} from './components';
 
 class Root extends Component {
   constructor (props) {
@@ -17,15 +20,20 @@ class Root extends Component {
   }
 
   render () {
-    const props = {
+    const passProps = {
       selected: this.state.selected,
       changeSelected: val => this.changeSelected(val)
     };
+
     return(
-      <SafeAreaView>
-        <View>
-          <Text>Selected: {this.state.selected}</Text>
-          <MonsterData2 {...props} />
+      <SafeAreaView style={{ flex: 1 }}>
+        <MonsterDetail
+          style={{ flex: 2 }}
+          {...passProps}
+        />
+        <View style={{ flex: 1 }}>
+          <Text>しらべたいモンスターをえらんでね</Text>
+          <MonsterPicker {...passProps} />
         </View>
       </SafeAreaView>
     );
