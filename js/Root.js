@@ -8,7 +8,6 @@ import {
 } from './components';
 
 const PicekerView = styled.View`
-  flex: 1;
 `;
 const PicekerText = styled.Text`
   text-align: center;
@@ -22,21 +21,27 @@ class Root extends Component {
     };
   }
 
-  changeSelected (val) {
+  changeSelected = val => {
     console.log('now selected: ', val)
     this.setState({selected: val});
-  }
+  };
+
+  onPressRandowShowButton = max => {
+    const randomId = Math.floor(Math.random() * (max + 1));
+    this.changeSelected(randomId);
+  };
 
   render () {
     const passProps = {
       selected: this.state.selected,
-      changeSelected: val => this.changeSelected(val)
+      changeSelected: this.changeSelected,
+      onPressRandowShowButton: this.onPressRandowShowButton
     };
 
     return(
       <SafeAreaView style={{ flex: 1 }}>
         <MonsterDetail
-          style={{ flex: 2 }}
+          style={{ flex: 1 }}
           {...passProps}
         />
         <PicekerView>
