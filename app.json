@@ -1,5 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "name": "MonsterApp",
+    "icon": "./assets/icon.png",
+    "version": "1.0.0",
+    "slug": "monsters-app",
+    "sdkVersion": "27.0.0",
+    "ios": {
+      "bundleIdentifier": "com.t-skgm.expo.monstersapp"
+    },
+    "android": {
+      "package": "com.t_skgm.expo.monstersapp"
+    }
   }
 }
