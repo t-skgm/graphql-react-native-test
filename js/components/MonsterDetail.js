@@ -26,6 +26,21 @@ const MonsterImageView = styled.View`
   justify-content: center;
 `;
 
+const MonsterDetailView = ({props, data}) => (
+  <View {...props}>
+    {console.log(data)}
+    <Title>ずかんNo.</Title>
+    <Val>{data.monster.id}</Val>
+    <Title>なまえ</Title>
+    <Val>{data.monster.name}</Val>
+    <MonsterImageView>
+      <MonsterImage
+        source={{uri: data.monster.img_src}}
+      />
+    </MonsterImageView>
+  </View>
+);
+
 const GET_MONSTER_BY_ID = id => gql`
   {
     monster(id: ${id}) {
@@ -43,20 +58,7 @@ class MonsterDetail extends Component {
         {({ loading, error, data }) => {
           if (loading) return <LoadingView {...this.props}/>;
           if (error) return <ErrorView error={error} props={this.props}/>;
-
-          return (
-            <View {...this.props}>
-              <Title>ずかんNo.</Title>
-              <Val>{data.monster.id}</Val>
-              <Title>なまえ</Title>
-              <Val>{data.monster.name}</Val>
-              <MonsterImageView>
-                <MonsterImage
-                  source={{uri: data.monster.img_src}}
-                />
-              </MonsterImageView>
-            </View>
-          );
+          return <MonsterDetailView props={this.props} data={data} />;
         }}
       </Query>
     );

@@ -18,6 +18,27 @@ const RandomButtonText = styled.Text`
   color: #fff;
 `;
 
+const MonsterPickerView = ({props, data}) => (
+  <View {...props}>
+    <Picker
+      selectedValue={props.selected}
+      onValueChange={(itemValue, itemIndex) => props.changeSelected(itemValue)}
+    >
+      {data.monsters.map(monster => (
+        <Picker.Item
+          label={`No.${monster.id} / ${monster.name}`}
+          value={monster.id}
+          key={'item' + monster.id}
+        />
+      ))}
+    </Picker>
+    <RandomButton onPress={() => props.onPressRandowShowButton(data.maxMonsterId)}
+    >
+      <RandomButtonText>ランダムでひょうじ</RandomButtonText>
+    </RandomButton>
+  </View>
+);
+
 const GET_MONSTERS = gql`
   {
     monsters {
@@ -36,27 +57,7 @@ class MonsterPicker extends Component {
         {({ loading, error, data }) => {
           if (loading) return <LoadingView {...this.props}/>;
           if (error) return <ErrorView error={error} props={this.props}/>;
-
-          return (
-            <View {...this.props}>
-              <Picker
-                selectedValue={this.props.selected}
-                onValueChange={(itemValue, itemIndex) => this.props.changeSelected(itemValue)}
-              >
-                {data.monsters.map(monster => (
-                  <Picker.Item
-                    label={`No.${monster.id} / ${monster.name}`}
-                    value={monster.id}
-                    key={'item' + monster.id}
-                  />
-                ))}
-              </Picker>
-              <RandomButton onPress={() => this.props.onPressRandowShowButton(data.maxMonsterId)}
-              >
-                <RandomButtonText>ランダムでひょうじ</RandomButtonText>
-              </RandomButton>
-            </View>
-          );
+          return <MonsterPickerView props={this.props} data={data} />;
         }}
       </Query>
     );
